@@ -18,7 +18,6 @@ epComsumption[col_num] <- sapply(epComsumption[col_num], as.numeric)
 # Code for the 1st graphic -----------------------------------------------------------
 #
 
-par(mfrow = c(1,1), mar = c(4,5,1,10))
 with(epComsumption, hist(Global_active_power, 
                          col = "red", 
                          xlab = "Global Active Power (kilowatts)", 
