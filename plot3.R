@@ -16,7 +16,7 @@ epComsumption[col_num] <- sapply(epComsumption[col_num], as.numeric)
 
 
 #
-# Code for the third graphic
+# Code for the 3rd graphic -----------------------------------------------------------
 #
 
 plot(epComsumption$DateTime, epComsumption$Sub_metering_1, 
