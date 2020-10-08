@@ -1,0 +1,89 @@
+# Loading and preparing data for this project
+#
+
+ElectricPower1 <- read.table("household_power_consumption.txt", sep = ";", header = TRUE,stringsAsFactors = FALSE)
+ElectricPower <- ElectricPower1[(ElectricPower1$Date == "1/2/2007" | ElectricPower1$Date == "2/2/2007" ),]
+
+DateTime <- paste(ElectricPower$Date, ElectricPower$Time, sep = " ")
+DateTime <- as.POSIXlt(DateTime, format = "%d/%m/%Y %H:%M:%S")
+
+epComsumption <- cbind(DateTime, ElectricPower[,3:9])
+as.numeric(epComsumption[,2:8])
+
+col_num <- names(epComsumption)[2:8]
+epComsumption[col_num] <- sapply(epComsumption[col_num], as.numeric)
+
+
+# First Graphic -----------------------------------------------------------
+par(mfrow = c(1,1), mar = c(4,5,1,10))
+with(epComsumption, hist(Global_active_power, 
+                         col = "red", 
+                         xlab = "Global Active Power (kilowatts)", 
+                         main = "Global Active Power"))
+dev.copy(png, file = "plot1.png")
+dev.off()
+
+
+# Second Graphic ----------------------------------------------------------
+par(mfrow = c(1,1), mar = c(4,4,2,2))
+with(epComsumption, plot(DateTime,Global_active_power, 
+                         type = "l", 
+                         xlab = " ",
+                         ylab = "Global Active Power (kilowatts)"))
+dev.copy(png, file = "plot2.png")
+dev.off()
+
+
+# Third Graphic -----------------------------------------------------------
+plot(epComsumption$DateTime, epComsumption$Sub_metering_1, 
+     type = "l", xlab = " ", ylab = "Energy sub metering")
+par(new=TRUE)
+plot(epComsumption$DateTime, epComsumption$Sub_metering_2, 
+     type = "l", col = "red",axes = FALSE,ylim = c(0,30), xlab =  " ", ylab = " ")
+par(new=TRUE)
+plot(epComsumption$DateTime, epComsumption$Sub_metering_3, 
+     type = "l", col= "blue", ylim = c(0,30),axes = FALSE, xlab = " ", ylab = " ")
+legend("topright",lty = 1, 
+       col = c("black","red","blue"),
+       legend = c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),
+       y.intersp = 0.2,x.intersp = .5)
+dev.copy(png, file = "plot3.png")
+dev.off()
+
+
+# Fourth Graphic ----------------------------------------------------------
+par(mfrow = c(2,2), mar = c(4,4,1,1)
+
+
+# first graphic
+with(epComsumption, plot(DateTime, Global_active_power, 
+                         type = "l", xlab = " ", ylab = "Global Active Power"))
+
+
+# second graphic
+with(epComsumption, plot(DateTime, Voltage, 
+                         type = "l", xlab = "datetime", ylab = "Voltage"))
+
+
+# third graphic
+with(epComsumption, {
+  plot(DateTime, Sub_metering_1, 
+       type = "l", xlab = " ", ylab = "Energy sub metering")
+  par(new=TRUE)
+  plot(DateTime, Sub_metering_2, 
+       type = "l", col = "red",axes = FALSE,ylim = c(0,30), xlab =  " ", ylab = " ")
+  par(new=TRUE)
+  plot(DateTime, Sub_metering_3, 
+       type = "l", col= "blue", ylim = c(0,30),axes = FALSE, xlab = " ", ylab = " ")
+  legend("topright",lty = 1, 
+         col = c("black","red","blue"),
+         legend = c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), bty = "n",y.intersp = .25, cex = .65)
+})
+
+
+# fourth graphic
+with(epComsumption, plot(DateTime, Global_reactive_power, 
+                         type = "l", xlab = "datetime", ylab = "Global_reactive_power"))
+
+dev.copy(png, file = "plot4.png")
+dev.off()
