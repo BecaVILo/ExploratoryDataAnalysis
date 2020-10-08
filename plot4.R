@@ -52,5 +52,5 @@ with(epComsumption, {
 with(epComsumption, plot(DateTime, Global_reactive_power, 
                          type = "l", xlab = "datetime", ylab = "Global_reactive_power"))
 
-dev.copy(png, file = "plot4.png")
+dev.copy(png, file = "plot4.png",width=480, height=480)
 dev.off()
