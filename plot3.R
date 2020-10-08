@@ -31,5 +31,5 @@ legend("topright",lty = 1,
        col = c("black","red","blue"),
        legend = c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),
        y.intersp = 0.2,x.intersp = .5)
-dev.copy(png, file = "plot3.png")
+dev.copy(png, file = "plot3.png",width=480, height=480)
 dev.off()
