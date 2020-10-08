@@ -15,7 +15,7 @@ col_num <- names(epComsumption)[2:8]
 epComsumption[col_num] <- sapply(epComsumption[col_num], as.numeric)
 
 #
-# Code for the second graphic
+# Code for the 2nd graphic -----------------------------------------------------------
 #
 
 par(mfrow = c(1,1), mar = c(4,4,2,2))
